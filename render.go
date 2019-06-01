@@ -3,7 +3,9 @@ package render
 
 import (
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/qor/assetfs"
@@ -140,5 +142,11 @@ func (render *Render) RegisterFuncMap(name string, fc interface{}) {
 
 // Asset get content from AssetFS by name
 func (render *Render) Asset(name string) ([]byte, error) {
+	if os.Getenv("DEBUG_RENDER") == "true" {
+		log.Printf("resolving asset %s in AssetFileSytem with configuration as below\n", name)
+		log.Println("DefaultLayout:", render.Config.DefaultLayout)
+		log.Println("ViewPaths:", render.Config.ViewPaths)
+		log.Println("AssetFileSystem:", render.Config.AssetFileSystem)
+	}
 	return render.AssetFileSystem.Asset(name)
 }

@@ -2,6 +2,16 @@
 
 Render provides handy controls when rendering templates.
 
+## Note
+
+this fork only add log messages to render.go template.go
+this is very useful for figuring out which template rendered when debugging
+just set env DEBUG_RENDER=true
+
+```
+export DEBUG_RENDER=true
+```
+
 ## Usage
 
 ### Initialize [Render](https://github.com/qor/render)

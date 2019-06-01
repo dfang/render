@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -147,5 +149,9 @@ func (tmpl *Template) Execute(templateName string, obj interface{}, req *http.Re
 }
 
 func (tmpl *Template) findTemplate(name string) ([]byte, error) {
-	return tmpl.render.Asset(strings.TrimSpace(name) + ".tmpl")
+	tmplName := strings.TrimSpace(name) + ".tmpl"
+	if os.Getenv("DEBUG_RENDER") == "true" {
+		log.Printf("###### DEBUG looking for template: %s ######\n", tmplName)
+	}
+	return tmpl.render.Asset(tmplName)
 }
